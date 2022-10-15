@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.js"></script>
+<script src="d3_exploding_boxplot_good.js"></script>
+<link rel="stylesheet" href="d3_exploding_boxplot.css">
+<!-- Create a div where the graph will take place -->
+<style>
+  .box select {
+    background-color: #ff7f00;
+    color: white;
+    padding: 12px;
+    width: 150px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+
+  .box::before {
+    /* content: "\f13a"; */
+    font-family: Georgia;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 15px;
+    line-height: 45px;
+    pointer-events: none;
+  }
+
+  .box select option {
+    padding: 30px;
+  }
+
+  * {
+    font-family: Georgia;
+    font-size: 15px;
+  }
+</style>
+<!-- Initialize a select button -->
+<div class="box">
+  <select id="selectButton"></select>
+</div>
+<div id="my_dataviz" style="padding-left: 400px;padding-top: 20px;"></div>
+
+<script>
+  var allItems = ["Lamb", "Calamari", "Crawfish", "Beer", "Chili", "Curry", "Sushi", "Brownie", "Pizza"]
+  allItems.sort();
+
+  d3.csv("https://raw.githubusercontent.com/duckmoll/data_host/main/binary_characteristic_food.csv", function (d) {
+    return {
+      id: d.name,
+      Stars: d.AverageRating,
+      WiFi: d.WiFi,
+      Lamb: d.lamb,
+      Calamari: d.calamari,
+      Crawfish: d.crawfish,
+      Beer: d.beer,
+      Chili: d.chili,
+      Curry: d.curry,
+      Sushi: d.sushi,
+      Brownie: d.brownie,
+      Pizza: d.pizza,
+    };
+  }, function (error, rows) {
+
+    var chart = d3.exploding_boxplot(rows,
+      { y: 'Stars', group: "Beer", color: "Beer", label: 'id' })
+    chart('#my_dataviz')
+    d3.select("#selectButton")
+      .selectAll('myOptions')
+      .data(allItems)
+      .enter()
+      .append('option')
+      .text(function (d) { return d; }) // text showed in the menu
+      .attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+    function updateChart(selectedGroup) {
+      console.log(selectedGroup)
+      var chart = d3.exploding_boxplot(rows,
+        { y: 'Stars', group: selectedGroup, color: selectedGroup, label: 'id' })
+      chart('#my_dataviz')
+    }
+
+    // Listen to the slider?
+    d3.select("#selectButton").on("change", function (d) {
+      d3.select("#my_dataviz").selectAll("*").remove()
+      selectedGroup = this.value
+      selectedGroup_up = selectedGroup.charAt(0).toUpperCase() + selectedGroup.slice(1)
+      updateChart(selectedGroup_up)
+    })
+
+  });
+
+</script>

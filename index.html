@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Florida Buffet</title>
+  <!-- Bootstrap -->
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'>
+  <link rel="stylesheet" href="css/flexslider.css" type="text/css">
+  <link href="css/queries.css" rel="stylesheet">
+  <link href="css/jquery.fancybox.css" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="css/styles.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target="#navbar-example">
+  <div class="wrapper">
+    <nav class="nav__wrapper" id="navbar-example">
+      <ul class="nav">
+        <li role="presentation" class="active">
+          <a href="#section1">
+            <span class="nav__counter">Intro</span>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#section2">
+            <span class="nav__counter">Yelp</span>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#section3">
+            <span class="nav__counter">Florida Buffet</span>
+          </a>
+        </li>
+
+        <li role="presentation">
+          <a href="#section4">
+            <span class="nav__counter">Analytics</span>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#section5">
+            <span class="nav__counter">Conclusion</span>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#section6">
+            <span class="nav__counter">Methods</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <section class="intro" id="section1">
+      <div class="container">
+        <div class="row" style="padding-left: 50px;">
+          <div class="col-md-8 col-md-offset-2 text-center">
+            <h1 class="animated fadeInUpDelay">What Makes a Great Buffet Restaurant in Florida?</h1>
+          </div>
+        </div>
+        <div class="row" style="padding-left: 50px;">
+          <div class="col-md-8 col-md-offset-2 text-center">
+            <p class="animated fadeInUpDelay">Group20: Hyuksoo Shin, Junlin Liu, Minglei Cai, Zhibao Li</p>
+          </div>
+        </div>
+        <div class="row" style="padding-left: 30px;">
+          <div class="col-md-6">
+            <object data="img/Geo/figure_5.html" type="text/html" width="100%" height="410px"
+              style="margin-top: 30px;"></object>
+            <p style="padding-left: 170px;margin-top: -5px;"><b>Cover Figure</b></p>
+          </div>
+          <div class="col-md-6">
+            <p style="font-size: 20px;">
+              <b>Why Buffets?</b> Compared to a general restaurant analysis, we think diving deeper into a
+              specific type of
+              restaurant can obtain more interesting and practical insights. In this project, we choose to study the
+              buffet
+              restaurant market because it is a niche market with great popularity. Buffet restaurants normally offer
+              a large variety of food and all-you-can-eat for a set price. With this business model, restaurant owners
+              can provide significantly
+              different food and services. This project aims to explore what influences a buffet restaurant's rating.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section calss="yelp" id="section2">
+      <div class="container">
+        <div class="row yelp">
+          <h2>Yelp Data</h2>
+        </div>
+        <div class="row">
+          <p>
+            The dataset we use is made available by Yelp. It consists of six separate files including businesses,
+            reviews, etc. The business data provides general information about the entity, while reviews data contain a
+            large amount of customer reviews of a specific business. We will mainly use these two datasets in the later
+            sections.</p>
+          <p>
+            The Yelp dataset contains about 30 thousand restaurants, 7000 restaurant categories, and more than 7 million
+            reviews from customers.</p>
+        </div>
+        <div class="row" style="padding-left: 30px;">
+          <div class="col-md-6">
+            <figure class="figure">
+              <p style="padding-left: 110px;margin-bottom: -25px;">Number of Restaurants by State</p>
+              <object data="img/intro/figure_1.html" type="text/html" width="100%" height="410px"></object>
+              <p class="fig_caption" style="padding-left: 200px; margin-top: -30px;"><b>FIGURE 1.</b></p>
+            </figure>
+          </div>
+          <div class=" col-md-6">
+            <figure class="figure">
+              <p style="padding-left: 40px;margin-bottom: -25px;">Number of Restaurants by Top Category</p>
+              <object data="img/intro/figure_2.html" type="text/html" width="100%" height="430px"></object>
+              <p class="fig_caption" style="padding-left: 220px; margin-top: -53px;"><b>FIGURE 2.</b></p>
+            </figure>
+          </div>
+        </div>
+        <div class="row">
+          <p>
+            Figure 1 and 2 show high-level distributions of the restaurants in the Yelp data. Pennsylvania and Florida
+            have the
+            largest number of
+            restaurants. "Bars" and "Nightlife" are the two most common restaurant categories.</p>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="buffet" id="section3">
+      <div class="container">
+        <div class="row">
+          <h2>
+            Why We Are Interested in Florida Buffets?
+          </h2>
+        </div>
+        <div class="row">
+          <h3>
+            Florida Has the Largest Number of Buffet Restaurants in Yelp Data
+          </h3>
+        </div>
+        <div class="row" style="padding-left: 30px;">
+          <div class="col-md-12">
+            <figure class="figure">
+              <p style="padding-left: 340px;margin-bottom: 0px;">Number of Buffet Restaurants by State</p>
+              <object data="img/Geo/figure_3.html" type="text/html" width="100%" height="410px"
+                style="padding-left:100px"></object>
+              <p class="fig_caption" style="padding-left: 150px; margin-top: 0px;width: 850px;"><b>FIGURE 3.</b> The
+                numbers of buffet
+                restaurants in different states are
+                plotted
+                using Choropleth. The color
+                scale indicates the percentage of buffet restaurants in the Yelp dataset.</p>
+            </figure>
+          </div>
+        </div>
+        <div class="row">
+          <h3>
+            Compare to the Other States, Florida Buffet Restaurants Are Getting More Attention From Customers
+          </h3>
+        </div>
+        <div class="row" style="padding-left: 30px;">
+          <div class="col-md-12">
+            <figure class="figure">
+              <p style="padding-left: 250px;margin-bottom: 0px;"># of Reviews by State Time Series and Bar Chart</p>
+              <object data="img/figure_4.html" type="text/html" width="100%" height="600px"
+                style="padding-left: 100px;"></object>
+              <p class="fig_caption" style="padding-left: 110px; margin-top: -60px;width: 800px;"><b>FIGURE 4.
+                  (Select/Multi-Select/Brush)</b> This plot is designed to
+                show the
+                change in buffet restaurants' review counts and stars.
+              </p>
+            </figure>
+          </div>
+        </div>
+        <div class="row">
+          <p>Colors are used for different states. In the first line chart, it is easy to find Florida (blue line) with
+            the most review counts after 2013, followed by Massachusetts (red line). The bar chart at the bottom is
+            connected to the line chart. The interactive method allows users to select specific bars (states) in the bar
+            chart, and then observe the change of review counts for a specific group of states in the line chart. </p>
+          <p>
+            Besides, the line chart is connected to the bar chart (the second one), which makes a bridge between review
+            counts and rating stars of these restaurants in different states. Specifically, users could select the
+            specific time in the line chart and see the comparison of the average stars of these restaurants in each
+            state. Also, it is allowed to click specific bars (states) in the bar chart, and then observe the change in
+            restaurants' review counts in these states in another chart. It is interesting to compare the review counts
+            and star change of buffet restaurants in states by the interactive method!
+          </p>
+        </div>
+        <div class="row">
+          <h3>
+            Location of Buffet Restaurants in Florida
+          </h3>
+        </div>
+        <div class="row">
+          <figure class="figure">
+            <p style="padding-left: 360px;margin-bottom: 0px;">Buffet Locations Open Street Map</p>
+            <object data="img/Geo/figure_5.html" type="text/html" width="80%" height="400px"></object>
+            <p class="fig_caption" style="padding-left: 110px; margin-top: 0px;width: 900px;"><b>FIGURE 5.
+                (Zoom/Click)</b> This chart
+              aims to show where the studied buffet restaurants are located.</p>
+          </figure>
+        </div>
+        <div class="row">
+          <p>
+            The Open Street Map shows that the majority of buffet restaurants in this dataset are located in the
+            downtown
+            area of Orlando. Clicking on the restaurant symbols shows their rating and address
+            information.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="analytics" id="section4">
+      <div class="container">
+        <h2>
+          Analytics
+        </h2>
+        <p>
+          The goal of the analysis is to find out the key factors that drive buffet restaurant ratings. As seen
+          by the plots included in the previous section, buffet restaurants in Florida are getting more popular among
+          customers and they have more reviews available that can be utilized for deeper analysis. This data leads to
+          some
+          questions about the buffet restaurant market.
+          Some example questions include:
+        </p>
+        <ul>
+          <li>Which country category is the most popular to the customers? American? Japanese?</li>
+          <li>What are some attributes of buffet restaurants that are related to high review stars?</li>
+          <li>Buffet restaurants have a variety of food. What kind of food leads to a higher rating?</li>
+          <li>...</li>
+        </ul>
+        <p>
+          The analysis starts by displaying the following innovative plot. Figure 6 combines
+          the restaurant information, stars, review counts, and the actual reviews in a single bubble plot. The best
+          reviews and worst reviews are sampled from their corresponding restaurant.
+        </p>
+        <div class="row">
+          <h3>
+            Florida Buffet Restaurants Overview
+          </h3>
+        </div>
+        <div class="row">
+          <figure class="figure">
+            <p style="padding-left: 300px;margin-bottom: 0px;">The Innovative View: Buffet Restaurant Bubble Chart</p>
+            <object data="img/figure_6.html" type="text/html" width="100%" height="1200px"
+              style="padding-left: 120px;"></object>
+            <p class="fig_caption" style="padding-left: 130px; margin-top: -60px;width: 950px;"><b>FIGURE 6.
+                (Select/Drag)</b> This restaurant bubble chart
+              shows
+              detailed information about each studied restaurant. The review count can be related to the popularity of
+              the
+              buffet restaurant. The colors of the
+              bubbles represent the stars of each restaurant. And the tooltip shows detailed restaurant information.
+            </p>
+          </figure>
+        </div>
+        <div class="row">
+          <h3>
+            Higher Price Leads to Better Customer Satisfaction, While Parking, Reservation, and Wifi Have Little Effect
+          </h3>
+        </div>
+        <p style="padding-left:350px;margin-bottom: -30px;">Qualitative Attributes of Buffet Restaurant Boxplots</p>
+        <div class="row">
+          <div class="col-md-3 col-md-offset-1" style="width: 20.833333%">
+            <object data="img/quality/figure_7_1.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3" style="width: 20.833333%">
+            <object data="img/quality/figure_7_2.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3" style="width: 20.833333%">
+            <object data="img/quality/figure_7_3.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3" style="width: 26.833333%">
+            <object data="img/quality/figure_7_4.html" type="text/html" width="100%" height="310px"
+              style="padding-top: 8px;"></object>
+          </div>
+        </div>
+        <p class="fig_caption" style="padding-left:180px;width:1000px"><b>FIGURE 7. (Double-Click)</b> The boxplots show
+          the relationship
+          between the
+          attributes of
+          restaurants and the review
+          stars. The exploding interactive method transitions between the boxplot and the distribution of the values.
+        </p>
+        <div class="row">
+          <p>
+            The analysis starts with attributes other than the food and service qualities. While the parking,
+            reservation, and WiFi availability seem not to affect the review stars, the price of each buffet restaurant
+            seems to be related to the overall satisfaction of the customers.
+          </p>
+          <p>
+            Yelp data is notorious for lacking quantitative measurement. We find a way to use "Aspect Extraction"
+            together with "Sentiment Analysis" to score each item in customer reviews. For example, if we have two
+            reviews from a restaurant "I love the sushi in this restaurant." and "The service is awful here." Our
+            algorithm will give "sushi" a positive score between 0 and 1, and give "service" a score between 0 and -1.
+          </p>
+          <p>
+            Finally, categorizing items from each review into different dimensions generates a series of factors.
+          </p>
+        </div>
+        <div class="row">
+          <h3>
+            Buffet Restaurant Factor Analysis from Yelp Review
+          </h3>
+        </div>
+        <div class="row" style="padding-left: 50px;">
+          <p style="padding-left:280px">Quantitative Attributes Parallel Coordinate Chart</p>
+          <object data="img/factors/figure_8.html" type="text/html" width="100%" height="450px"
+            style="padding-left: 40px;"></object>
+          <p class="fig_caption" style="width: 900px;margin-top:-20px;"><b>FIGURE 8. </b>Parallel Coordinate Chart can
+            be a good
+            starting
+            point for adding
+            more factors to the
+            analysis. This plot is used for plotting multivariate numerical data and finding out the relationship
+            between them. The price variable is added to the plot. The price axis is placed in parallel to the food
+            score and the service score axis. Each line shows an individual observation (restaurant) and the color of
+            the line represents the star rating of the restaurant.</p>
+        </div>
+        <div class="row">
+          <h3>
+            Restaurant Stars Are Most Correlated with Number of Reviews, Food Score, Service Score, and Environment
+            Score
+          </h3>
+        </div>
+        <div class="row">
+          <p style="padding-left:340px">Correlogram Between Quantitative Factors</p>
+          <object data="img/factors/figure_9.html" type="text/html" width="100%" height="500px"></object>
+          <p class="fig_caption" style="padding-left:330px;width: 780px;margin-top: -30px;"><b>FIGURE 9. </b>Correlogram
+            of the
+            factors,
+            extracted from
+            the Yelp reviews. The red color scale
+            represents a positive correlation. The blue color scale represents a negative correlation</p>
+        </div>
+        <div class="row">
+          <p>
+            As seen in Figures 8 and 9, it's clear that a deeper analysis into the food factor is important. Therefore,
+            we
+            break down the food factor into two categories: restaurant category and served food.
+          </p>
+        </div>
+        <div class="row">
+          <h3>
+            Buffet Restaurant Category Analysis
+          </h3>
+        </div>
+        <div class="row">
+          <p style="padding-left:100px">Category Distribution Upset Chart</p>
+          <div class="col-md-12">
+            <img src="img/category/figure_10.png" style="width:80%;height:380px;padding-left: 100px;">
+          </div>
+          <p class="fig_caption" style="padding-left:220px;width: 900px;"><b>FIGURE 10. </b>The upset plot is designed
+            in a clear and
+            intuitive way to show
+            rich information with
+            color, dot,
+            bar, and line mapping. The number of buffet restaurants based on the combination of categories is shown in
+            the plot. The review stars are encoded as the colors of the bars. </p>
+        </div>
+        <div class="row">
+          <p class="animated fadeInUp">Figure 10 gives us an overview of the category distribution of Florida buffet
+            restaurants and their ratings. As the plot shows, there are more than 20 kinds of buffet
+            restaurants in Florida with different category combinations. Traditional American, Chinese, and Japanese
+            buffets are the most popular in Florida, followed by Indian and Latin buffets with
+            relatively better reviews. Also, both brunch and bar buffet restaurants are common, but the former is
+            more popular. Among food and drinks, seafood, sushi, pizza, and beer buffets are very hot!
+          </p>
+          <p class="animated fadeInUp">Next, we further utilize the category analysis with factors from customer
+            reviews.
+          </p>
+        </div>
+        <div class="row">
+          <h3>
+            American, Chinese, and Japanese Buffet Restaurants Have the Greatest Popularity, while Indian, Brazilian,
+            and
+            Halal Restaurants Enjoy the Highest Ratings
+          </h3>
+        </div>
+        <div class="row" style="padding-left:50px;">
+          <div class="col-md-7">
+            <p style="padding-left:200px;margin-bottom: -80px;">
+              Country Score Radar Chart
+            </p>
+            <object data="img/category/figure_11.html" type="text/html" width="100%" height="500px"></object>
+            <p class="fig_caption" style="margin-top:-60px"><b>FIGURE 11. </b>The radar plot is used to visualize the
+              multivariate
+              quantitative data. The area
+              indicates the overall satisfaction of the customers.</p>
+          </div>
+          <div class="col-md-5">
+            <p style="padding-left:0px;margin-bottom: -100px;">
+              Country Distribution Bar Chart
+            </p>
+            <object data="img/category/figure_12.html" type="text/html" width="100%" height="550px"></object>
+            <p class="fig_caption" style="margin-top:-90px;margin-left: -80px;"><b>FIGURE 12. </b>Number of Restaurants
+              by country.</p>
+          </div>
+        </div>
+        <div class="row">
+          <p>From Figures 11 and 12, an interesting finding is that there are more American, Chinese, and
+            Japanese buffet restaurants than other types, but they are rated worse than the others. It also shows
+            in their
+            factor scores. Typically, people give higher scores to Brazilian, Halal, and Indian buffets, especially for
+            their food, service, and environment. As for variety, Latin, American, and Chinese buffets receive more good
+            reviews,
+            while Halal buffets get significantly better comments on drinks.
+          </p>
+        </div>
+        <div class="row">
+          <h3>
+            People Prefer Vegetarian Buffet Over Pizza and Sushi Buffet
+          </h3>
+        </div>
+        <div class="row" style="padding-left:50px;">
+          <div class="col-md-7">
+            <p style="padding-left:200px;margin-bottom: -80px;">
+              Food Category Score Radar Chart
+            </p>
+            <object data="img/category/figure_13.html" type="text/html" width="100%" height="500px"></object>
+            <p class="fig_caption" style="margin-top:-60px"><b>FIGURE 13. </b>The radar plot is used to visualize the
+              food category scores.
+              The area indicates the overall satisfaction of the customers.</p>
+          </div>
+          <div class="col-md-5">
+            <p style="padding-left:0px;margin-bottom: -100px;">
+              Food Category Distribution Bar Chart
+            </p>
+            <object data="img/category/figure_14.html" type="text/html" width="100%" height="550px"></object>
+            <p class="fig_caption" style="margin-top:-90px;margin-left: -80px;"><b>FIGURE 14. </b>Number of Restaurants
+              by food category.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <p>Figures 13 and 14 show the distribution of buffet restaurants in terms of food categories. A similar
+            finding
+            from
+            these two plots is seafood, sushi, and pizza buffets are more popular in Florida, but they are rated worse
+            than steakhouses, barbeque, and vegetarian buffets. Specifically, Vegetarian buffets get the
+            highest stars (4.0), and are rated quite well in the environment (0.51), sauce (0.2), and drink
+            (0.14). It indicates that people potentially like healthy buffets more. On the other hand, steakhouse
+            buffets are mentioned more in good food and service. Besides, barbeque buffets are recommended more for
+            their variety.
+          </p>
+          <p>
+            From the above four charts, we can see that the more-restaurants categories tend to have lower ratings than
+            the less-restaurants categories. Perhaps, people are inclined to give mediocre ratings to common food types
+            in
+            buffet restaurants.
+          </p>
+        </div>
+        <div class="row">
+          <h3>Beer, Chili, Curry, Lamb Lead to Higher Restaurant Rating</h3>
+        </div>
+        <p style="padding-left:470px;margin-bottom: -30px;">Food in Reviews Boxplots</p>
+        <div class="row" style="padding-left: 100px;">
+          <div class="col-md-3 col-md-offset-1" style="width: 20.833333%">
+            <object data="img/quality/figure_15_1.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3" style="width: 20.833333%">
+            <object data="img/quality/figure_15_2.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3" style="width: 20.833333%">
+            <object data="img/quality/figure_15_3.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3" style="width: 21%">
+            <object data="img/quality/figure_15_4.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3 col-md-offset-1" style="width: 20.833333%">
+            <object data="img/quality/figure_15_5.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3" style="width: 20.833333%">
+            <object data="img/quality/figure_15_6.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3" style="width: 20.833333%">
+            <object data="img/quality/figure_15_7.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+          <div class="col-md-3" style="width: 21%">
+            <object data="img/quality/figure_15_8.html" type="text/html" width="100%" height="310px"></object>
+          </div>
+        </div>
+        <p class="fig_caption" style="padding-left:250px;width:950px"><b>FIGURE 15. (Double-Click)</b>The boxplots show
+          the relationship
+          between weather customers commented on specific food and the rating stars. The interactive methods provide
+          the transition between the boxplot and the distribution of the values.
+        </p>
+        <div class="row">
+          <p>
+            Finally, the food provided in the buffet restaurants is extracted from the customer reviews. This idea
+            comes
+            from the experience that even though buffet restaurants provide various foods, some dishes stand out.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="conclusion" id="section5">
+      <div class="container">
+        <div class="row">
+          <h2>
+            Conclusion
+          </h2>
+        </div>
+        <div class="row">
+          <p>
+            Various visualization techniques are used to get insights from the Florida buffet restaurant market. When
+            exploring the Yelp dataset, many aspects can be analyzed. This project
+            has studied some factors that differentiate good-rating buffet restaurants from bad-rating ones.
+          </p>
+          <p>
+            At first, it examines some qualitative factors including parking availability, price, category, etc.
+            Secondly, since the Yelp dataset
+            provides
+            a rich collection of customer reviews, we utilize them to extract quantitative measurements on different
+            dimensions including food, service, environment, etc.
+
+            Finally, because of food score's strong correlation with buffet restaurant rating, different food categories
+            , and food items
+            are further investigated. Given the above analysis, conclusions regarding what
+            makes good buffet restaurants are garnered, such as:
+          </p>
+          <ul>
+            <li style="font-size: 18px;">American, Chinese, and Japanese buffet restaurants have the greatest
+              popularity,
+              while Indian, Brazilian
+              , and Halal restaurants enjoy the highest ratings</li>
+            <li style="font-size: 18px;">People prefer vegetarian buffets over pizza and sushi buffet</li>
+            <li style="font-size: 18px;">Beer, Chili, Curry, and Lamb lead to higher restaurant rating</li>
+            <li style="font-size: 18px;">Higher price leads to better customer satisfaction, while parking, reservation,
+              and wifi has little
+              effect</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="methods" id="section6">
+      <div class="container">
+        <div class="row">
+          <h2>Methods</h2>
+        </div>
+        <p style="padding-left: 120px;"><a href="Method.html">Link to how we implemented this project.</a></p>
+        <p style="padding-left: 120px;"><a href="https://github.com/duckmoll/data_host">Since D3 can only read external
+            data links, all the d3 data are from this repo.</a></p>
+      </div>
+    </section>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js?v=1.7"></script>
+    <script src="js/jquery.flexslider.js"></script>
+    <script src="js/jquery.smooth-scroll.js"></script>
+    <script src="js/modernizr.js"></script>
+    <script src="js/waypoints.min.js"></script>
+  </div>
+</body>
+
+</html>

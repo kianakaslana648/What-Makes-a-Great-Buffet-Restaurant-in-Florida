@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <script src='https://d3js.org/d3.v5.min.js'></script>
+  <!-- <script src="'https://cdnjs.com/libraries/d3-legend"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script> -->
+
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <style>
+    body {
+      font-family: "Georgia";
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .tooltip {
+      position: absolute;
+      visibility: hidden;
+      background-color: #FFF;
+      display: flex;
+      font-family: "Georgia";
+      max-width: 500px;
+    }
+
+    .tooltip div {
+      padding: 5px;
+    }
+
+    .tooltip img {
+      width: 200px;
+    }
+
+    .tooltip span {
+      display: inline-block;
+      margin-top: 5px;
+      padding: 2px 10px;
+      border-radius: 2px;
+      font-weight: bold;
+      font-size: 15px;
+      font-family: 'Georgia';
+    }
+
+    .tooltip a {
+      color: #FFF;
+      font-weight: bold;
+      display: block;
+    }
+
+    svg text {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .goodlist blockquote {
+      line-height: 32px;
+      font-size: 15px;
+      color: #fff;
+      background: #70c1b3;
+      margin: 10px;
+      padding: 15px 20px 15px 20px;
+      border-radius: 5px;
+      font-family: 'Georgia';
+    }
+
+    .badlist blockquote {
+      line-height: 32px;
+      font-size: 15px;
+      color: #fff;
+      background: #f25f5c;
+      margin: 10px;
+      padding: 15px 20px 15px 20px;
+      border-radius: 5px;
+      font-family: 'Georgia';
+    }
+
+    blockquote:before,
+    blockquote:after {
+      position: relative;
+      vertical-align: middle;
+      font-family: 'Georgia';
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 0;
+      color: #f3d250;
+    }
+
+    blockquote:before {
+      left: -5px;
+      content: '\201C';
+    }
+
+    blockquote:after {
+      content: '\201D';
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='vis'></div>
+  <div class="tooltip">
+    <img alt="" />
+    <div>
+      <a></a>
+      <span></span>
+    </div>
+  </div>
+  <div style="display: flex;flex-wrap: wrap;visibility: hidden;justify-content: center;align-items: center;"
+    class="desp">
+    <div style="display: flex;flex-wrap: wrap;padding-right: 220px;">
+      <h3 class="avatar_name"></h3>
+      <br>
+      <h3 class="avatar_address" style="padding-left:2px"></h3>
+    </div>
+  </div>
+  <div style="width:840px;" class="reviews">
+    <div class="grid-container">
+      <div class="grid-child purple goodlist">
+        <h2 style="padding-left:130px">Top Reviews</h2>
+        <blockquote id="goodone"></blockquote>
+        <blockquote id="goodtwo"></blockquote>
+      </div>
+      <div class="grid-child green badlist">
+        <h2 style="padding-left:110px">Bottom Reviews</h2>
+        <blockquote id="badone"></blockquote>
+        <blockquote id="badtwo"></blockquote>
+      </div>
+    </div>
+  </div>
+  <script>
+    const width = 860;
+    const height = 600;
+
+    // location to centre the bubbles
+    const centre = { x: width / 2 - 60, y: height / 2 };
+
+    // strength to apply to the position forces
+    const forceStrength = 0.03;
+
+    // these will be set in createNodes and chart functions
+    let svg = null;
+    let bubbles = null;
+    let labels = null;
+    let nodes = [];
+    function charge(d) {
+      return Math.pow(d.radius, 2.0) * 0.01
+    }
+
+    function ticked() {
+      bubbles
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y)
+
+      labels
+        .attr('x', d => d.x)
+        .attr('y', d => d.y)
+    }
+
+    // data manipulation function takes raw data from csv and converts it into an array of node objects
+    // each node will store data and visualisation values to draw a bubble
+    // rawData is expected to be an array of data objects, read in d3.csv
+    // function returns the new node array, with a node for each element in the rawData input
+    function createNodes(rawData) {
+      // use max size in the data as the max in the scale's domain
+      // note we have to ensure that size is a number
+      const maxSize = d3.max(rawData, d => +d.size);
+
+      // size bubbles based on area
+      const radiusScale = d3.scaleSqrt()
+        .domain([0, maxSize])
+        .range([0, 65])
+
+      // use map() to convert raw data into node data
+      const myNodes = rawData.map(d => ({
+        ...d,
+        radius: radiusScale(+d.size),
+        size: +d.size,
+        x: Math.random() * 900,
+        y: Math.random() * 800
+      }))
+
+      return myNodes;
+    }
+
+
+    function sleep(milliseconds) {
+      var start = new Date().getTime();
+      for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds) {
+          break;
+        }
+      }
+    }
+
+
+    // create a force simulation and add forces to it
+    const simulation = d3.forceSimulation()
+      .force('charge', d3.forceManyBody().strength(charge))
+      // .force('center', d3.forceCenter(centre.x, centre.y))
+      .force('x', d3.forceX().strength(forceStrength).x(centre.x))
+      .force('y', d3.forceY().strength(forceStrength).y(centre.y))
+      .force('collision', d3.forceCollide().radius(d => d.radius + 1));
+
+    // force simulation starts up automatically, which we don't want as there aren't any nodes yet
+    simulation.stop();
+
+    const colors_list = ["#f25f5c", "#ffe066", "#70c1b3", "#3D9970", "#AAAAAA"]
+
+    // set up colour scale
+    const fillColour = d3.scaleOrdinal()
+      .domain(["1", "2", "3", "5", "99"])
+      .range(colors_list);
+
+
+    // What happens when a circle is dragged?
+    function dragstarted(d) {
+      d3.select(".desp").style("visibility", "visible")
+      d3.select(".reviews").style("visibility", "visible")
+      d3.select(".avatar_name").text(`${d.id},`)
+      d3.select(".avatar_address").text(`${d.address}`)
+      d3.select("#goodone").html(d.good_one)
+      d3.select("#goodtwo").html(d.good_two)
+      d3.select("#badone").html(d.bad_one)
+      d3.select("#badtwo").html(d.bad_two)
+      if (!d3.event.active) simulation.alphaTarget(0).alpha(0.5).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+    function dragged(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+    }
+    function dragended(d) {
+      if (!d3.event.active) simulation.alphaTarget(0).alpha(0.5);
+      d.fx = null;
+      d.fy = null;
+    }
+    function click(data) {
+      d3.select(".desp").style("visibility", "visible")
+      d3.select(".reviews").style("visibility", "visible")
+      d3.select(".avatar_name").text(`${data.id},`)
+      d3.select(".avatar_address").text(`${data.address}`)
+      d3.select("#goodone").html(data.good_one)
+      d3.select("#goodtwo").html(data.good_two)
+      d3.select("#badone").html(data.bad_one)
+      d3.select("#badtwo").html(data.bad_two)
+    }
+
+    d3.csv('https://raw.githubusercontent.com/duckmoll/data_host/main/reviews_data.csv').then(function (data) {
+      // convert raw data into nodes data
+      nodes = createNodes(data);
+
+      // create svg element inside provided selector
+      svg = d3.select("#vis")
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+
+
+      // Handmade color legend
+      svg.append("circle").attr("cx", 700).attr("cy", 130).attr("r", 6).style("fill", colors_list[2])
+      svg.append("circle").attr("cx", 700).attr("cy", 160).attr("r", 6).style("fill", colors_list[1])
+      svg.append("circle").attr("cx", 700).attr("cy", 190).attr("r", 6).style("fill", colors_list[0])
+      svg.append("text").attr("x", 720).attr("y", 135).text("Star >= 4").style("font-size", "15px").attr("font-family", "Georgia").attr("alignment-baseline", "middle")
+      svg.append("text").attr("x", 720).attr("y", 165).text("3 <= Star < 4 ").style("font-size", "15px").attr("font-family", "Georgia").attr("alignment-baseline", "middle")
+      svg.append("text").attr("x", 720).attr("y", 195).text("Star < 3").style("font-size", "15px").attr("font-family", "Georgia").attr("alignment-baseline", "middle")
+
+      // The scale you use for bubble size
+      const size = d3.scaleSqrt()
+        .domain([1, 100])  // What's in the data, let's say it is percentage
+        .range([1, 50])  // Size in pixel
+
+      // Add legend: circles
+      const valuesToShow = [{ "t": "Few Reviews", "v": 10 },
+      { "t": "More Reviews", "v": 50 },
+      { "t": "Many Reviews", "v": 100 }]
+      const xCircle = 700
+      const xLabel = 760
+      const yCircle = 360
+
+      svg
+        .selectAll("legend")
+        .data(valuesToShow)
+        .join("circle")
+        .attr("cx", xCircle)
+        .attr("cy", d => yCircle - size(d.v))
+        .attr("r", d => size(d.v))
+        .style("fill", "none")
+        .attr("stroke", "black")
+
+      // Add legend: segments
+      svg
+        .selectAll("legend")
+        .data(valuesToShow)
+        .join("line")
+        .attr('x1', d => xCircle + size(d.v))
+        .attr('x2', xLabel)
+        .attr('y1', d => yCircle - size(d.v))
+        .attr('y2', d => yCircle - size(d.v))
+        .attr('stroke', 'black')
+        .style('stroke-dasharray', ('2,2'))
+
+      // Add legend: labels
+      svg
+        .selectAll("legend")
+        .data(valuesToShow)
+        .join("text")
+        .attr('x', xLabel)
+        .attr('y', d => yCircle - size(d.v))
+        .text(d => d.t)
+        .style("font-size", 15)
+        .attr('alignment-baseline', 'middle')
+        .attr("font-family", "Georgia")
+
+
+      const tooltip = d3.select(".tooltip")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "3px")
+        .style("padding", "1px")
+
+      // bind nodes data to circle elements
+      const elements = svg.selectAll('.bubble')
+        .data(nodes, d => d.id)
+        .enter()
+        .append('g')
+        .on("click", click)
+        .on("mouseover", function (d, index) {
+          tooltip.select("img").attr("src", d.img);
+          tooltip.select("a").attr("href", d.img).text(d.id);
+          tooltip
+            .select("span")
+            .attr("class", d.id)
+            .html(`${d.id}<br><br>${d.address}`);
+          tooltip.style("visibility", "visible");
+
+          d3.select(this).style("stroke", "#222");
+        })
+        .on('mousemove', function () {
+          tooltip.style('top', `${d3.mouse(this)[1]}px`)
+            .style('left', `${d3.mouse(this)[0] + 10}px`)
+        })
+        .on("mouseout", function () {
+          d3.select(this).style("stroke", "none");
+          return tooltip.style("visibility", "hidden");
+        })
+        .call(d3.drag() // call specific function when circle is dragged
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+      bubbles = elements
+        .append('circle')
+        .classed('bubble', true)
+        .attr('r', d => d.radius)
+        .attr('fill', d => fillColour(d.groupid))
+
+      // labels
+      labels = elements
+        .append('text')
+        .attr('dy', '.3em')
+        .style('text-anchor', 'middle')
+        .style('font-size', 15)
+        .style('font-weight', 400)
+        .attr("font-family", "Georgia")
+      // .html(d => d.id)
+
+      // set simulation's nodes to our newly created nodes array
+      // simulation starts running automatically once nodes are set
+      simulation.nodes(nodes)
+        .on('tick', ticked)
+        .restart();
+
+      // Default to the first data point
+      d1 = data[0]
+      d3.select(".desp").style("visibility", "visible")
+      d3.select(".reviews").style("visibility", "visible")
+      d3.select(".avatar_name").text(`${d1.id},`)
+      d3.select(".avatar_address").text(`${d1.address}`)
+      d3.select("#goodone").html(d1.good_one)
+      d3.select("#goodtwo").html(d1.good_two)
+      d3.select("#badone").html(d1.bad_one)
+      d3.select("#badtwo").html(d1.bad_two)
+
+    })
+
+
+  </script>
+</body>

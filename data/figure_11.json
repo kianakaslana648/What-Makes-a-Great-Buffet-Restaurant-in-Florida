@@ -1,0 +1,81 @@
+[  
+  {  
+    "key":"American",
+    "values":[
+  {"category":"American",
+  "aspect":"Food",
+  "value":0.1984},
+  {"category":"American","aspect":"Service","value":0.3772},
+  {"category":"American","aspect":"Environment","value":0.3178},
+{"category":"American","aspect":"Variety","value":0.3058},
+{"category":"American","aspect":"Drink","value":0.0843},
+{"category":"American","aspect":"Sauce","value":0.1097}
+    ]
+  },
+  {  
+    "key":"Chinese",
+    "values":[  
+{"category":"Chinese","aspect":"Food","value":0.1664},
+{"category":"Chinese","aspect":"Service","value":0.1773},
+{"category":"Chinese","aspect":"Environment","value":0.3027},
+{"category":"Chinese","aspect":"Variety","value":0.3033},
+{"category":"Chinese","aspect":"Drink","value":0.1},
+{"category":"Chinese","aspect":"Sauce","value":0.1034}
+    ]
+  },
+  {  
+    "key":"Japanese",
+    "values":[  
+{"category":"Japanese","aspect":"Food","value":0.1687},
+{"category":"Japanese","aspect":"Service","value":0.1496},
+{"category":"Japanese","aspect":"Environment","value":0.3383},
+{"category":"Japanese","aspect":"Variety","value":0.3146},
+{"category":"Japanese","aspect":"Drink","value":0.1405},
+{"category":"Japanese","aspect":"Sauce","value":0.075}
+    ]
+  },
+  {  
+    "key":"Indian",
+    "values":[  
+{"category":"Indian","aspect":"Food","value":0.2496},
+{"category":"Indian","aspect":"Service","value":0.3803},
+{"category":"Indian","aspect":"Environment","value":0.4424},
+{"category":"Indian","aspect":"Variety","value":0.2699},
+{"category":"Indian","aspect":"Drink","value":0.1076},
+{"category":"Indian","aspect":"Sauce","value":0.1579}
+    ]
+  },
+  {  
+    "key":"Latin",
+    "values":[  
+{"category":"Latin","aspect":"Food","value":0.2084},
+{"category":"Latin","aspect":"Service","value":0.4032},
+{"category":"Latin","aspect":"Environment","value":0.312},
+{"category":"Latin","aspect":"Variety","value":0.3918},
+{"category":"Latin","aspect":"Drink","value":0.1161},
+{"category":"Latin","aspect":"Sauce","value":0.1231}
+    ]
+  },
+  {  
+    "key":"Halal",
+    "values":[  
+{"category":"Halal","aspect":"Food","value":0.2755},
+{"category":"Halal","aspect":"Service","value":0.4128},
+{"category":"Halal","aspect":"Environment","value":0.4455},
+{"category":"Halal","aspect":"Variety","value":0.2746},
+{"category":"Halal","aspect":"Drink","value":0.1871},
+{"category":"Halal","aspect":"Sauce","value":0.0829}
+    ]
+  },
+  {  
+    "key":"Brazilian",
+    "values":[  
+{"category":"Brazilian","aspect":"Food","value":0.3805},
+{"category":"Brazilian","aspect":"Service","value":0.4548},
+{"category":"Brazilian","aspect":"Environment","value":0.3861},
+{"category":"Brazilian","aspect":"Variety","value":0.2476},
+{"category":"Brazilian","aspect":"Drink","value":0.1247},
+{"category":"Brazilian","aspect":"Sauce","value":0.1512}
+    ]
+  }
+]

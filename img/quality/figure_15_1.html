@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.js"></script>
+<script src="d3_exploding_boxplot_food.js"></script>
+<style>
+  * {
+    font-size: 15px;
+    font-family: Georgia;
+  }
+</style>
+<link rel="stylesheet" href="d3_exploding_boxplot.css">
+<!-- Create a div where the graph will take place -->
+<br>
+<br>
+<br>
+<div id="my_dataviz"></div>
+
+<script>
+
+  d3.csv("https://raw.githubusercontent.com/duckmoll/data_host/main/binary_characteristic_food.csv", function (d) {
+    return {
+      id: d.name,
+      Stars: d.AverageRating,
+      Beer: d.beer
+    };
+  }, function (error, rows) {
+    var chart = d3.exploding_boxplot(rows,
+      { y: 'Stars', group: 'Beer', color: 'Beer', label: 'id' })
+    chart('#my_dataviz')
+
+  });
+  // d3.csv("https://raw.githubusercontent.com/duckmoll/data_host/main/binary_characteristic.csv", function (data) {
+  //   // Color scale: give me a specie name, I return a color
+  //   var box1 = d3.range(100).map(d3.random.normal(Math.random() * 100, 5))
+  //     .map(function (d, i) { return { v: d, g: 'box1', t: 'pt 1' + i } })
+
+  //   var box2 = d3.range(100).map(d3.random.normal(Math.random() * 100, 30))
+  //     .map(function (d, i) { return { v: d, g: 'box2', t: 'pt 2' + i } })
+
+  //   var box3 = d3.range(100).map(function () { return Math.random() * 100 })
+  //     .map(function (d, i) { return { v: d, g: 'box3', t: 'pt 3' + i } })
+  //   // with outliers
+  //   var box4 = d3.range(80).map(d3.random.normal(50, 5))
+  //     .concat(d3.range(20).map(d3.random.normal(50, 25)))
+  //     .map(function (d, i) { return { v: d, g: 'box4', t: 'pt 4' + i } })
+
+  //   var fake_data = box1.concat(box2).concat(box3).concat(box4)
+
+
+  //   console.log(fake_data)
+</script>
